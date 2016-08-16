@@ -11,18 +11,48 @@
 // An analogy for this is a recipe. Writing a function is like writing a recipe. Invoking a function is like actually baking that recipe. Another way of thinking of this is that the function is a set of instructions, but we haven't yet carried out those instructions. 
 
 // 1. Create a very basic function called funcInvoker. This isn't a complex function, it just has one simple task. It's going to have two parameters: funcToInvoke, and argToInvokeWith. As you may have already guessed, funcToInvoke is a function (any function!) that the user passes in to us. And argToInvokeWith is an argument (any argument!) that the user gives us to invoke that function with. All our basic little function has to do is invoke funcToInvoke with argToInvokeWith. 
+
+
+    var funcInvoker = function(funcToInvoke, argToInvokeWith) {
+      // console.log("calling with funcToInvoke", funcToInvoke);
+      funcToInvoke(argToInvokeWith);
+    };
+
   // Example invocation: 
   var addToTen = function(num1) {
     console.log('just invoked addToTen with',num1,'and 10, resulting in', 10 + num1);
   };
-  // funcInvoker(addToTen, 5); //'just invoked addToTen with 5 and 10, resulting in 15'
+  funcInvoker(addToTen, 5); //'just invoked addToTen with 5 and 10, resulting in 15'
 // This might not seem like much, and in fact, that's the point! This is functional programming: you passed a function into another function as an argument. That's all it takes. 
 
 
+
+
+
+
+
+
+
+
 // 2. Let's create a function called breadMaker. This function takes in a single argument, and then console.logs 'mmm, fresh baked ' + argName + ' bread.'
+    var breadMaker = function (argName) {
+      console.log("mmm, fresh baked " + argName + ' bread.');
+    };
+
+
+
 // Obviously, you won't see anything appear in your console because we haven't invoked it yet!
 // 3. Now let's create an ingredientsArray with four different ingredients in it. Mine would be var ingredientsArray = ['quinoa','banana','zucchini', 'guacamole'];. Clearly I'm not much of a breadbaker!
+    var ingredientsArray = ['pizza dough', 'pepperoni', 'tomato sauce', 'cheese'];
+
+
 // 4. Using a for loop, invoke breadMaker on each item in the array. What do you see in your console?
+    // ingredientsArray.forEach(breadMaker);
+
+    for (var i = 0; i < ingredientsArray.length; i++) {
+      funcInvoker(breadMaker, ingredientsArray[i]);
+    }
+
 // At this point, you might be kind of bored. Because this is exactly what we've been doing all along. That's great! Because this leads us into functional programming. 
 // Let's go through and refactor our code in a couple different ways. 
 // 5. First, within each iteration, let's use funcInvoker instead of just using breadMaker directly. funcInvoker should be passed the function that we want it to invoke, as well as the argument we want passed into that function. 
@@ -33,12 +63,19 @@
 // Can we refactor this to be a bit more generalized? Right now it only works for this particular array (ingredientsArray) and this particular function (breadMaker). If we wanted to invoke this on a different array or use a different function, we'd have to write the entire loop all over again. 
 // 6. Write a function called invokeOnEach that takes in an array and a function, then invokes the function on each item in the array. 
 
+  var invokeOnEach = function (arr1, func) {
+     for (var i = 0; i < arr1.length; i++) {
+      func(arr1[i]);
+     } 
+  };
+
+
 // Example:
 var jsPoints = [2,7,3,5];
 var telegraphPrepLearning = function(item) {
   console.log('after going through Telegraph Prep, this user has',item + 1000000000,'JavaScript points!');
 };
-// invokeOnEach(jsPoints, telegraphPrepLearning);
+invokeOnEach(jsPoints, telegraphPrepLearning);
 // 'after going through Telegraph Prep, this user has 1000000002 JavaScript points!'
 // 'after going through Telegraph Prep, this user has 1000000007 JavaScript points!'
 // 'after going through Telegraph Prep, this user has 1000000003 JavaScript points!'
@@ -56,6 +93,18 @@ var call5SecondsLater = function(callback) {
 console.log('hello from yourself immediately');
 // 7. Try creating various functions and passing them in as the argument for call5SecondsLater. 
   // Since we're not returning anything from call5SecondsLater, these functions will need to have side effects we can observe. Try modifying a variable, and console.logging it before and after we invoke call5SecondsLater (hint, we'll have to console.log it inside the function we pass into call5SecondsLater). 
+  var random1 = "Goodbye";
+
+var random = function () { 
+ console.log(random1);
+  random1 = "Hello";
+  // setTimeout(random, 5000);
+ console.log(random1);
+};
+
+call5SecondsLater(random);
+
+
 
 // Remember that a function is just a block of code (or instructions) that we've created but not invoked yet. 
 // We can create a function and then store it into a variable, as we've done with var call5SecondsLater = function() {};
@@ -63,6 +112,17 @@ console.log('hello from yourself immediately');
 // You'll notice, of course, that we're not invoking the anonymous function. But just like a function that we've stored into a variable, we can pass this anonymous function in as an argument to a higher-order function. 
 // Let's try this out! 
 // 8. Create a series of anonymous functions and pass those into call5SecondsLater. Here's an example of what I'd do:
+var names = ["aileen", "audrey"];
+call5SecondsLater(function(){
+  for (var i = 0; i < names.length; i++) {
+    var name = names[i];
+    console.log(name);
+    name = name[0].toUpperCase();
+    console.log(name);
+    names.push(name);
+  }
+});
+
 call5SecondsLater(function() {
   console.log("don't mind me, just playing around with time travel");
 })
@@ -79,6 +139,7 @@ call5SecondsLater(function() {
   }
   console.log('testArr after adding 10 to everything on a 5 second delay:',testArr);
 });
+
 
 // This is a very common pattern for functional programming. If we're creating a function that we'll only use for that particular higher-order invocation, it can be clearer to just write it as an anonymous function inside the higher-order function invocation. This saves us from having to search elsewhere in our file to find where we defined that function and figure out what it does. It's a stylistic preference, but you should know each pattern (saving a function into a variable and passing in that variable to a higher-order function invocation, or just declaring an anonymous function in-line as we invoke the higher-order function) at least well enough to understad what's going on, since you will encounter both throughout your career as an engineer. 
 

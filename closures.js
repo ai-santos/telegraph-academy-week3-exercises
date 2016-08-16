@@ -1,31 +1,55 @@
 
 
 // 1. Write a function, `nonsense` that takes an input `string`. This function contains another function, `blab` which alerts `string` and is immediately called inside the function `nonsense`. `blab` should look like this inside of the `nonsense` function:
-
-// 	```javascript
-// 	 var blab = function(){
-// 	   alert(string);
-// 	 };
+var nonsense = function (string) {
+	 var blab = function(){
+	   alert(string);
+	 };
+};
 // 	 ```
 
 // 2. In your function, `nonsense`, change the immediate call to a setTimeout so that the call to `blab` comes after 2 seconds. The `blab` function itself should stay the same as before.
 
+var nonsense = function (string) {
+   var blab = function(){
+     alert(string);
+   };
+   setTimeout(blab, 2000);
+};
+
+
 // 3. Now, instead of calling `blab` inside of `nonsense`, return `blab` (without invoking it). Call `nonsense` with some string and store the returned value (the `blab` function) in a variable called `blabLater`. Call `nonsense` again with a different string and store the returned value in a variable called `blabAgainLater`.
+  var nonsense = function (string) {
+   var blab = function(){
+     alert(string);
+   };
+   setTimeout(blab, 2000);
+   return blab;
+};
+
+var blabLater = nonsense("jkljl;jfaf");
+var blabAgainLater = nonsense("abcdefghi");
+
+
 
 // 4. Inspect `blabLater` and `blabAgainLater` in your console. Call them (they are functions!) and see what happens!
 
 
 // 5. Write a function with a closure. The first function should only take one argument, someone's first name, and the inner function should take one more argument, someone's last name. The inner function should console.log both the first name and the last name.
 // 	```javascript
-// 	var lastNameTrier = function(firstName){
-// 	   //does stuff
+	var lastNameTrier = function(firstName){
+ 	   console.log("Hello" + firstName)
 	
-// 	    var innerFunction = function() { 
-// 	        //does stuff
-// 	    };
-// 	    //maybe returns something here
-// 	};
-// 	var firstNameFarmer = lastNameTrier('Farmer'); //logs nothing
+	    var innerFunction = function(lastName) { 
+	      console.log(firstName + ' ' + lastName)
+	    };
+	     return innerFunction;
+	};
+
+  var firstNameFarmer = lastNameTrier('Johnny');
+  firstNameFarmer('Appleseed');
+
+	// var firstNameFarmer = lastNameTrier('Farmer'); //logs nothing
 // 	firstNameFarmer('Brown'); //logs 'Farmer Brown' 
 // 	```      
 // 	This function is useful in case you want to try on different last names. For example, I could use firstName again with another last name:
@@ -37,6 +61,22 @@
        
 
 // 6. Create a `storyWriter` function that returns an object with two methods. One method, `addWords` adds a word to your story and returns the story while the other one, `erase`, resets the story back to an empty string. Here is an implementation:
+  var storyWriter = function(story) {
+    var story1 = story;
+      return {
+        addWords: function(story2) {
+          var story2 = story2;
+          return story1 + ' ' + story2;
+          },
+        erase: function(story) {
+          var story = ''
+        }
+      }  
+  };
+
+var farmLoveStory = storyWriter("There once was a turtle.");
+farmLoveStory.addWords("The turtle lived in the ocean.");
+
 // 	```javascript
 // 	var farmLoveStory = storyWriter();
 // 	farmLoveStory.addWords('There was once a lonely cow.'); // 'There was once a lonely cow.'
@@ -50,6 +90,21 @@
 // 	```  
 
 // 7. Using the module pattern, design a toaster. Use your creativity here and think about what you want your users to be able to access on the outside of your toaster vs what you don't want them to be able to touch.
+  var toaster = function(bread){
+    var bread1 = bread;
+      return {
+        heat: function(toast) {
+          var toast = prompt("How would you like your toast?");
+          console.log("Your " + toast + " " + bread1 + " is now ready!");
+        }
+      }
+  };
+  
+
+  var breakfast = toaster('apple cinnamon bagel');
+  breakfast.heat();
+
+
 		
 // 	```javascript
 // 	var Toaster = function(){
@@ -63,6 +118,21 @@
 
 
 // [EXTRA CREDIT] Use the module pattern to design a character in a Super Mario game. Think about what actions you can control in the game and other aspects you can't control directly (example:  you can only affect your health indirectly by eating a mushroom). If you are not familiar with Super Mario, choose another simple game for this example.
+ var toaster = function(bread){
+    var bread1 = bread;
+      return {
+        heat: function(toast) {
+          var toast = prompt("How would you like your toast?");
+          console.log("Your " + toast + " " + bread1 + " is now ready!");
+        }
+      }
+  };
+  
+
+  var breakfast = toaster('apple cinnamon bagel');
+  breakfast.heat();
+
+
 
 // [EXTRA CREDIT] Why doesn't the code below work? This is a function that should return an array of functions that console.log() each person's name as a string when invoked. Fiddle with this function and inspect how it works, then try to fix it using a closure. Be prepared to explain to a partner how it worked before, and how it works now with a closure. 
 

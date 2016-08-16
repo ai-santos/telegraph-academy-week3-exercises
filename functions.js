@@ -1,41 +1,86 @@
-// 1. Write a function, `AnimalTestUser`, that has one string parameter, `username`. It returns an object with a username property.
+// 1. Write a function, `AnimalTestUser`, that has one string parameter, `username`. 
+//It returns an object with a username property.
+
+
+function animalTestUser (name) {
+  var person = {username: name};
+    return person;  
+}
+
+
+var testSheep = animalTestUser('CottonBall');
+console.log(testSheep); //{ username: 'CottonBall' }
+
+
+
+
+// 2. In your `AnimalTestUser` function, create a check that 
+//sees how many arguments are passed. If there is more than one argument, create a property, `otherArgs` 
+//that is an array of the remaining arguments. Note: the `arguments` keyword is not a true array. 
+//Remember, it is an array-like object.
+
+function animalTestUser (name, arguments) {
+  var person = {username: name};
+      return person;  
+   if (animalTestUser.length > 1) {
+    person.otherArgs = [];
+    arguments.push(person.otherArgs)
+  }
+}
+
+
+
+// var animaTestUser = function (name) {
+//   //check how many arguments are passed
+
+//   var person = {username: name, otherArgs: []};
+
+//   if (arguments.length > 1) {
+
+//   }
+//     return person;  
+
+// }
 
 // ```javascript
-// var testSheep = AnimalTestUser('CottonBall');
-// console.log(testSheep); //{ username: 'CottonBall' }
-// ```
+var testSheep = animalTestUser('CottonBall', {'loves dancing': true}, [1,2,3] );
+console.log(testSheep); //{ username: 'CottonBall', otherArgs: [ {'loves dancing': true}, [1,2,3] ] }
 
-
-
-// 2. In your `AnimalTestUser` function, create a check that sees how many arguments are passed. If there is more than one argument, create a property, `otherArgs` that is an array of the remaining arguments. Note: the `arguments` keyword is not a true array. Remember, it is an array-like object.
-
-// ```javascript
-// var testSheep = AnimalTestUser('CottonBall', {'loves dancing': true}, [1,2,3] );
-// console.log(testSheep); //{ username: 'CottonBall', otherArgs: [ {'loves dancing': true}, [1,2,3] ] }
-// ```
 
 
 
 // 3. Write a constructor function, `AnimalCreator` that returns a single animal object. The constructor function has 4 parameters: `username`, `species`, `tagline,` and `noises`. The animal object should have at least 5 properties: `username`, `species`, `noises`, `tagline`, and `friends`. The values should all be strings except `noises` and `friends`, which are arrays. 
+     function AnimalCreator(username, species, tagline, noises) {
+        this.username = username;
+        this.species = species;
+        this.tagline = tagline;
+        this.noises = [noises];
+        friends = [];
+      }
+
 
 // ```javascript
-// var sheep = AnimalCreator('Cloud', 'sheep', 'You can count on me!', ['baahhh', 'arrgg', 'chewchewchew']);
-// console.log(sheep);
-//       // { username: 'Cloud', 
-//       //  species: 'sheep', 
-//       //  tagline: 'You can count on me!', 
-//       //  noises: ['baahhh', 'arrgg', 'chewchewchew'], 
-//       //  friends: []
-//       // }
+var sheep = new AnimalCreator('Cloud', 'sheep', 'You can count on me!', ['baahhh', 'arrgg', 'chewchewchew']);
+console.log(sheep);
+      // { username: 'Cloud', 
+      //   species: 'sheep', 
+      //   tagline: 'You can count on me!', 
+      //   noises: ['baahhh', 'arrgg', 'chewchewchew'], 
+      //   friends: []
+      // }
 // ```
 
 
 
-// 4. Write a function, `addFriend` that takes an animal object (like the one returned from the `AnimalCreator` function) and adds another animal object as a friend. 
-
+// 4. Write a function, `addFriend` that takes an animal object (like the one returned from the `AnimalCreator` function) 
+// and adds another animal object as a friend. 
+   function addFriend (sheep, friend) {
+        sheep.friend = [{friend}];
+    return this.sheep = {};
+   }
 // ```javascript
-//   addFriend(sheep, cow);
-//   console.log(sheep);
+  addFriend(sheep, cow);
+  console.log(sheep);
 //         // { username: 'Cloud', 
 //         //  species: 'sheep', 
 //         //  tagline: 'You can count on me!', 

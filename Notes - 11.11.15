@@ -1,0 +1,91 @@
+Notes - 11.11.15
+
+STOPWATCH FUNCTION:
+
+var makeStopwatch = function() {
+    var elapsed = 0;
+    var intervalId;
+    var increase = function(){elapsed++;}
+    var pause = function() {
+      clearInterval(intervalId);
+
+    };
+
+    return {
+      getTime: function() { return elapsed; },
+      start: function() { intervalId = setInterval(increase, 1000);
+      },
+      pause: pause,
+      reset: function() {
+        elapsed = 0;
+        pause();
+      }
+    };
+  };
+
+HIGHER ORDER FUNCTIONS & CALLBACKS
+
+declarative - what the program is doing rather than how to do it
+imperative - 
+
+//f(x) = x + 1
+//g(x) = x * 4
+f(g(x))
+f(g(5)) = 21
+
+UNDERSCORE.JS LECTURE:
+
+var superheroes = {
+  batman: 'human',
+  superman: 'alien',
+  ironman: 'human',
+  groot: 'alien',
+  wolverine: 'mutant'
+};
+
+TAKE A FUNCTION OR A COLLECTION:
+
+var animalNames = ['Frog', 'Falcon', 'Fox'];
+
+//declare a variable printer and assign a function to it's 
+
+var printer = function (callback, collection){
+
+//check the type of the collection
+
+  if(Array.isArray(collection)) {
+    for (var i = 0; i < collection.length; i++) {
+      console.log(collection[i]);
+    } 
+  } else {
+    for (var property in collection) {
+      callback(collection[property]);
+    }
+  }
+};
+
+ printer(animalNames, console.log);
+
+_.each function
+
+syntax:
+
+_.each(data, function);
+
+_.each = function(list, iterator) {
+  //function body
+};
+
+EACH DOES NOT RETURN ANYTHING
+
+_.MAP() USAGE
+
+Syntax 
+
+_.map = function(list, iterator) {
+   //function body
+}
+
+_.map(data, function)
+
+MAP RETURNS VALUES

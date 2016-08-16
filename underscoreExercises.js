@@ -28,12 +28,23 @@ var obj = {
 
 // 1. invoke _.each to iterate through our arr. 
   // Inside the callback function, console log the string 'hi, I'm inside the callback!'
+ _.each(arr, function(){
+    console.log("Hi, I'm inside the callback!")
+ });
+ 
   // You should see this pop up 5 times in your console. 
   // This should tell you that the function is being invoked 5 times. And all it's doing is running the body of the function once on every iteration. There's no magic there. 
   // The body of the callback function is just a block of code we invoke the same number of times as there are items in the array.
     // If we have 5 items in our array, we will run this block of code 5 times. 
 
 // 2. Cool, now let's console.log what item, the first parameter for our callback, is for each iteration.
+
+
+  _.each(arr, function(item){
+      console.log(item);
+  });
+
+
   // You should see 
   // 100
   // 200
@@ -46,6 +57,13 @@ var obj = {
     // The key thing that changes each time is what the item is. 
 
 // 3. Declare a variable called count that exists in the global scope, and set it equal to 0. Now that you're comfortable accessing each item in arr, let's console log both count (which will represent the index of that item) and the relevant value stored in arr. So with each iteration we'll want to increase count by 1. 
+  var count = -1;
+   _.each(arr, function(item){
+      count++;
+      console.log('count is:' + ' ' + count + ", the value we're accessing in the array is " + item);
+  });
+  
+
   // So what we'd expect to see in our console is:
   // 'count is: 0, the value we're accessing in the array is 100'
   // 'count is: 1, the value we're accessing in the array is 200'
@@ -55,23 +73,68 @@ var obj = {
 
 // 4. Great! Now you've figured out that our callback function is just a block of code that gets run once on each item in an array. 
   // Now let's use a new _.each invocation to play with items in the array. 
+  var newArray = [];
+
+  _.each(arr, function(item){
+      var newItem = item + 1;
+      newArray.push(newItem);  
+  });
+
+   console.log(newArray);
   // Let's add 1 to each item in arr, and then push it into a new array in the global scope.
   // Now that you've added 1 to each item, console.log the new array that we've created in the global scope to see the results. 
     // We expect to see [101, 201, 301, 401, 501]
   // Have some fun doing this a few more times. Try multiplying each item in arr by some number. Then try dividing it by some number. 
-    // Write entirely new _.each invocations every time, don't just change the '+' to a '/'. 
+  var newArray = [];
+
+  _.each(arr, function(item){
+      var newItem = (item + 2) * (item + 2);
+        newArray.push(newItem);
+  });
+
+  console.log(newArray)
+    // Write entirely new _.each invocations every time, don't just change the '+' to a '/'.
+  var list = ["cats", "dogs", "rain", "thunder"];
+  
+  _.each(list, function(){
+      var brad = list.join()
+      console.log(brad);
+  });
+
     // We want to get practice typing out _.each invocations as many times as possible. 
+    var gOfTkingdoms = ["Lannister", "Greyjoy", "Stark", "Barratheon"]
+
+    _.each(gOfTkingdoms, function(behead){
+      gOfTkingdoms.shift();
+      console.log(gOfTkingdoms);
+    });
+
+
+
 
 // By this point you should be feeling pretty good on iterating through arrays using each! Now let's look into iterating through objects. 
 // You could just change all the invocations we had for the exercises above to be invoked on obj, instead of arr. Nothing other than that has to change. 
 // And while it's powerful to realize that _.each has some logic built into it that lets you use the same callback function for both arrays and objects, you'd be robbing yourself of a chance to gain a deeper understanding by typing these invocations again and building out that muscle memory. So let's write new _.each invocations for each exercise below, and get quicker and better at them each time!
 
+
+
 // 5. Create a new _.each invocation to iterate through our obj. 
   // Inside the body of the callback function, console.log the string 'hi, i'm inside the callback!''
+
+  _.each(obj, function(){
+    console.log("Hi, i'm inside the callback!")
+  });
   // You should see this pop up 3 times in your console.
   // This should tell you that the callback function in our _.each invocation is running 3 times. And, much like when we invoked this callback on our arr, all it's doing is running the body of the callback once on each iteration. 
 // 6. Now let's check out what key is on each iteration.
   // Remember that for objects, each passes in both the value and the key to each invocation of the callback.
+  var arrayOfKeys = [];
+  _.each(obj, function(key){
+     for(key in obj) {
+      arrayOfKeys.push(key)
+     }
+      console.log(arrayOfKeys);
+  });
   // If you console.log the key in the for callback function body, you should see 
   // 'city'
   // 'slingsCode'
@@ -82,6 +145,10 @@ var obj = {
     // On each iteration, let's push the key into this arrayOfKeys. After your for loop, console.log the arrayOfKeys. 
     // You should see ['city', 'slingsCode', 'excitementLevel']. Note that they may not be in this order, since we can't guarantee the order that an object's keys are in. 
 // 7. Ok, now that we've figured out that key is just a variable that will be set equal to the name of each property in obj, 
+    _.each(obj, function(val){
+      console.log("the key is: " + obj + ", the value _.each is giving us from that object is "+ val);
+    });
+
   // let's prove that we don't need to use it to access the values stored in obj. (and in fact, using key to access those values is an anti-pattern).
   // Write a new _.each invocation to iterate through obj, console logging each value to the console. 
   // We'd expect to see
@@ -111,6 +178,15 @@ var obj = {
 
 // So let's get in some practice with map!
 var testArr = [100,200,300,400,500];
+
+var addFive = function(val) {
+  return val + 5;
+};
+
+var testArraddFive = _.map(testArr, addFive);
+
+console.log(testArraddFive);
+console.log(testArr);
 // 1. Add 5 to each item in testArr
   // console.log the results returned from map. You should see an array of [105,205,305,405,505]
   // console.log testArr. This should not have changed at all. If it did change, that means you're using map like each to have side effects, and that's not what map is designed for. 
@@ -124,12 +200,44 @@ var testArr = [100,200,300,400,500];
     Oak: 'Oakland',
     SJ: 'San Jose'
   };
+
+
+  var longform = _.map(shortNameArr, function(val) {
+    return cityMapper[val];
+  });
+  
+  console.log(longform)
+
+
+
+
+   
+
+
+  // var longformName = _.map(shortNameArr, longform);
+
+  // console.log(longformName);
+
+
   // Let's take our shortNameArr and return an array that has the longform names of each city. So we'd expect to see ['San Francisco','New York City','Chicago','Oakland','San Jose']; 
   // Again, console.log the results of map, and console.log shortNameArr to make sure it hasn't changed. 
   // If you're not getting the results you expect, check back with the three rules of what our callback function must do. 
 
 // 3. Now let's use map to take an array of strings, and return an array of objects. 
-  var colorArray = ['red','purple','orange','yellow','green','purple'];
+//   var colorArray = ['red','purple','orange','yellow','green','purple'];
+
+//   var colorObj = _.each(colorArray, function (val) {
+//     var object = {};
+    
+
+//   });
+
+//   _.map(colorArray, function())
+
+
+
+// _.reduce(colorArray,function(val){val[b.name]=b.value;return a},{});
+
   // let's take in colorArray, and return an array of objects that have a color property set equal to each item in colorArray. 
   // Expected Results: [{color: 'red'}, {color:'orange'}, {color:'purple]'}, {color:'yellow'}, {color:'green'}, {color:'purple'}]
 

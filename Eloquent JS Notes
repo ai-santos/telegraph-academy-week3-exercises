@@ -1,0 +1,7 @@
+Eloquent JS Notes:
+
+Ch. 5 Higher Order Functions
+
+Pure Functions - do not modify the given array
+
+map function - iterates through the array and performs an action on each
